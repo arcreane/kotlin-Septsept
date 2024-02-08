@@ -13,7 +13,7 @@ interface StudentDao {
     suspend fun insert(student: Student)
     @Delete
     suspend fun delete(student: Student)
-    @Query("SELECT * from students ORDER BY lastName ASC")
+    @Query("SELECT * from students ORDER BY lastname ASC")
     fun getAllStudents(): Flow<List<Student>>
 
 }
