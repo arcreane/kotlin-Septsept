@@ -1,4 +1,4 @@
-package com.example.teammanager
+package com.example.teammanager.ui.util
 
 class DegreeUtil {
 

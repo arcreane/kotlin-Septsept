@@ -1,4 +1,4 @@
-package com.example.teammanager
+package com.example.teammanager.ui.student
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme

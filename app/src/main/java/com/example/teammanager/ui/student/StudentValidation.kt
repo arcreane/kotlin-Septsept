@@ -1,4 +1,6 @@
-package com.example.teammanager
+package com.example.teammanager.ui.student
+
+import com.example.teammanager.R
 
 fun StudentValidation(
     firstname: String,

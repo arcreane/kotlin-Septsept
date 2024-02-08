@@ -1,4 +1,4 @@
-package com.example.teammanager
+package com.example.teammanager.ui.student
 
 import android.annotation.SuppressLint
 import android.widget.Toast
@@ -37,6 +37,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.example.teammanager.ui.util.DegreeUtil
+import com.example.teammanager.R
 
 @SuppressLint("StringFormatInvalid")
 @Composable
@@ -152,7 +154,7 @@ fun AddStudentScreen() {
                         ).show()
                     },
                     onValidate = {
-                        // TODO: Navigate to next screen / Store medication info
+
                         Toast.makeText(
                             context,
                             context.getString(R.string.success),
