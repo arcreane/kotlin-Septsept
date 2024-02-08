@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">TeamManager</string>
+    <string name="app_name" translatable="false">TeamManager</string>
+    <string name="add_student">Add Student</string>
+    <string name="student_firstname">Firstname</string>
+    <string name="student_lastname">Lastname</string>
+    <string name="level">Level</string>
+    <string name="maxLevelError">He cannot be more than level 5.</string>
+    <string name="degree">Degree</string>
 </resources>
