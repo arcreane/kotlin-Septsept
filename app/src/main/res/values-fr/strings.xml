@@ -5,4 +5,5 @@
     <string name="student_lastname">Nom</string>
     <string name="level">Niveau</string>
     <string name="maxLevelError">Il ne peut pas aller au de-là du niveau 5.</string>
+    <string name="degree">Cursus</string>
 </resources>

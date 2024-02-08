@@ -6,4 +6,11 @@
     <string name="level">Level</string>
     <string name="maxLevelError">He cannot be more than level 5.</string>
     <string name="degree">Degree</string>
+    <string name="success">Student added successfully.</string>
+    <string name="value_is_empty">One (or many) value is empty.</string>
+    <string name="firstname_empty">Firstname is empty.</string>
+    <string name="lastname_empty">Lastname is empty.</string>
+    <string name="level_error">Level should be between 1 and 5.</string>
+    <string name="save">SAVE</string>
+    <string name="level_empty">Level is empty.</string>
 </resources>

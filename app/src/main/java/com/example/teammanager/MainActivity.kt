@@ -1,5 +1,8 @@
 package com.example.teammanager
 
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,10 +22,11 @@ class MainActivity : ComponentActivity() {
             AddStudentApp()
         }
     }
-}
 
+}
 @Preview
 @Composable
 fun AddStudentAppPreview(){
     AddStudentApp()
 }
+

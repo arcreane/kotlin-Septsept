@@ -1,10 +1,16 @@
 package com.example.teammanager
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.content.ContextWrapper
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
@@ -12,6 +18,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material3.Button
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -26,12 +33,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 
+@SuppressLint("StringFormatInvalid")
 @Composable
 fun AddStudentScreen() {
 
@@ -39,8 +49,8 @@ fun AddStudentScreen() {
     var lastname by rememberSaveable { mutableStateOf("") };
     var level by rememberSaveable { mutableStateOf("1") }
     var isMaxLevelError by rememberSaveable { mutableStateOf(false) }
-    var recurrence by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programming.name) }
-
+    var degree by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programming.name) }
+val context =    LocalContext.current
     Column(
         modifier = Modifier
             .padding(16.dp, 16.dp)
@@ -114,12 +124,51 @@ fun AddStudentScreen() {
                             )
                         }
                     },
-                    placeholder = { Text(text = "e.g. 1") },
                     isError = isMaxLevelError,
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
                 )
             }
-            DegreeDropdownMenu { recurrence = it }
+
+            DegreeDropdownMenu { degree = it }
+
+        }
+
+        Spacer(modifier = Modifier.padding(8.dp))
+
+        Button(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(56.dp)
+                .align(Alignment.CenterHorizontally),
+            onClick = {
+                StudentValidation(
+                    lastname = lastname,
+                    firstname = firstname,
+                    level = level,
+                    degree = degree,
+                    onInvalidate = {
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.value_is_empty, context.getString(it)),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    },
+                    onValidate = {
+                        // TODO: Navigate to next screen / Store medication info
+                        Toast.makeText(
+                            context,
+                            context.getString(R.string.success),
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                )
+            },
+            shape = MaterialTheme.shapes.extraLarge
+        ) {
+            Text(
+                text = stringResource(id = R.string.save),
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
 
         if (isMaxLevelError) {
@@ -132,6 +181,8 @@ fun AddStudentScreen() {
 
     }
 }
+
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 private
