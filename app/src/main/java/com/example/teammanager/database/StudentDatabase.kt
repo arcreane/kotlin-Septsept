@@ -13,15 +13,15 @@ abstract class StudentDatabase : RoomDatabase() {
         @Volatile
         private var INSTANCE: StudentDatabase? = null
 
-        fun getInstance(context: Context): StudentDatabase {
+        fun getDatabase(context: Context): StudentDatabase {
             return INSTANCE ?: synchronized(this) {
-                val instance = Room.databaseBuilder(
+                Room.databaseBuilder(
                     context.applicationContext,
                     StudentDatabase::class.java,
                     "student_database"
-                ).build()
-                INSTANCE = instance
-                instance
+                )
+                    .build()
+                    .also{INSTANCE = it}
             }
         }
     }
