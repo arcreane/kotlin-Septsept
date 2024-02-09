@@ -8,7 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -24,8 +23,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.teammanager.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,7 +42,7 @@ fun StudentViewScreen() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("Top app bar")
+                    Text(stringResource(id = R.string.student))
                 }
             )
         },
@@ -54,13 +55,13 @@ fun StudentViewScreen() {
                     modifier = Modifier
                         .fillMaxWidth(),
                     textAlign = TextAlign.Center,
-                    text = "Bottom app bar",
+                    text = "Menu de navigation (v2)",
                 )
             }
         },
         floatingActionButton = {
             FloatingActionButton(onClick = { showDialog = true }) {
-                Icon(Icons.Default.Add, contentDescription = "Add")
+                Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add_student))
             }
         }
     ) { innerPadding ->
@@ -86,9 +87,11 @@ fun StudentViewScreen() {
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { Text("Add Student") },
+            title = { stringResource(id = R.string.add_student) },
             text = {
-                StudentEntryScreen()
+                StudentEntryScreen (onSave = {
+                    showDialog = false
+                })
             },
             confirmButton = { }
         )

@@ -13,4 +13,5 @@
     <string name="level_error">Level should be between 1 and 5.</string>
     <string name="save">SAVE</string>
     <string name="level_empty">Level is empty.</string>
+    <string name="student">Students</string>
 </resources>
