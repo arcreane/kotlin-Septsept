@@ -21,6 +21,11 @@ class MainActivity : ComponentActivity() {
         val studentDao = database.studentDao()
 
         val toto = OfflineStudentsRepository(studentDao)
+
+        runBlocking {
+            toto.insertStudent(Student(lastname = "Benyamina", firstname = "Mohamed", level = "4", degree = "Programming"))
+        }
+
         val allStudents = runBlocking {
             toto.getAllStudentsStream().firstOrNull() ?: emptyList()
         }
