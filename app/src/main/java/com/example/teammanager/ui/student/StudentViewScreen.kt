@@ -1,7 +1,6 @@
 package com.example.teammanager.ui.student
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -50,7 +49,7 @@ fun StudentViewScreen() {
     }
 
     Scaffold(
-        topBar = {
+        topBar = { // Header
             TopAppBar(
                 colors = topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
@@ -65,7 +64,7 @@ fun StudentViewScreen() {
                 }
             )
         },
-        bottomBar = {
+        bottomBar = { // Bottom Menu
             BottomAppBar(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,
                 contentColor = MaterialTheme.colorScheme.primary,
@@ -77,13 +76,13 @@ fun StudentViewScreen() {
                 )
             }
         },
-        floatingActionButton = {
+        floatingActionButton = { // Add Students popup
             FloatingActionButton(onClick = { showDialog = true }) {
                 Icon(Icons.Default.Add, contentDescription = stringResource(id = R.string.add_student))
             }
         }
     ) { innerPadding ->
-        LazyColumn(
+        LazyColumn( // Student List
             modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
@@ -94,7 +93,7 @@ fun StudentViewScreen() {
     }
 
     if (showDialog) {
-        AlertDialog(
+        AlertDialog( // Add Student Screen
             onDismissRequest = { showDialog = false },
             text = {
                 StudentEntryScreen (onSave = {
