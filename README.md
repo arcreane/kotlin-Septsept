@@ -1,5 +1,3 @@
-
-
 ## 1. Introduction
 
 L'objectif de ce projet est de concevoir et développer une application en Kotlin permettant de créer et gérer équitablement des groupes d'étudiants en fonction de leur sexe et de leur classe, pour les événements organisés par le Bureau des Étudiants (BDE). L'application permettra également d'attribuer des points aux équipes, de créer manuellement des équipes et de gérer les membres des groupes de manière flexible.

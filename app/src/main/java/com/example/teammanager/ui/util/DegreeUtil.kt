@@ -1,7 +1,6 @@
 package com.example.teammanager.ui.util
 
 class DegreeUtil {
-
     enum class Degree {
         Programmation,
         Marketing,

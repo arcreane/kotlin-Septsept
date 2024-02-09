@@ -47,6 +47,8 @@ fun StudentEntryScreen(onSave: () -> Unit) {
     var level by rememberSaveable { mutableStateOf(LevelUtil.Level.B1.name) }
     var degree by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programmation.name) }
     val context = LocalContext.current
+
+    // DB Instantiation
     val database = StudentDatabase.getDatabase(context)
     val studentDao = database.studentDao()
     val studentRepository = OfflineStudentsRepository(studentDao)
@@ -58,7 +60,7 @@ fun StudentEntryScreen(onSave: () -> Unit) {
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
 
-        Text(
+        Text( // Title
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             text = stringResource(id = R.string.add_student),
@@ -69,37 +71,37 @@ fun StudentEntryScreen(onSave: () -> Unit) {
 
         Spacer(modifier = Modifier.padding(4.dp))
 
-        Text(
+        Text( // Label
             text = stringResource(id = R.string.student_firstname),
             style = MaterialTheme.typography.bodyLarge
         )
 
-        TextField(
+        TextField( // Firstname
             modifier = Modifier.fillMaxWidth(),
             value = firstname,
             onValueChange = { firstname = it },
             placeholder = { Text(text = stringResource(id = R.string.student_firstname)) },
         )
 
-        Text(
+        Text( // Label
             text = stringResource(id = R.string.student_lastname),
             style = MaterialTheme.typography.bodyLarge
         )
 
-        TextField(
+        TextField( // Lastname
             modifier = Modifier.fillMaxWidth(),
             value = lastname,
             onValueChange = { lastname = it },
             placeholder = { Text(text = stringResource(id = R.string.student_lastname)) },
         )
 
-        LevelDropdownMenu { level = it }
+        LevelDropdownMenu { level = it } // Level
 
-        DegreeDropdownMenu { degree = it }
+        DegreeDropdownMenu { degree = it } // Degree
 
         Spacer(modifier = Modifier.padding(8.dp))
 
-        Button(
+        Button( // Save Button
             modifier = Modifier
                 .fillMaxWidth()
                 .height(56.dp)
@@ -108,20 +110,20 @@ fun StudentEntryScreen(onSave: () -> Unit) {
                 StudentEntryValidation(
                     lastname = lastname,
                     firstname = firstname,
-                    onInvalidate = {
+                    onInvalidate = { // Error encountered
                         Toast.makeText(
                             context,
                             context.getString(R.string.value_is_empty, context.getString(it)),
                             Toast.LENGTH_LONG
                         ).show()
                     },
-                    onValidate = {
+                    onValidate = { // All fields are valid
                         Toast.makeText(
                             context,
                             context.getString(R.string.success),
                             Toast.LENGTH_LONG
                         ).show()
-                        runBlocking {
+                        runBlocking { // Insert in db
                             studentRepository.insertStudent(Student(lastname = lastname, firstname = firstname, level = level, degree = degree))
                         }
                         onSave()
