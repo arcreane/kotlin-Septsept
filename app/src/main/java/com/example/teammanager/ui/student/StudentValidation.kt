@@ -2,7 +2,7 @@ package com.example.teammanager.ui.student
 
 import com.example.teammanager.R
 
-fun StudentValidation(
+fun StudentValidation (
     firstname: String,
     lastname: String,
     level: String,
