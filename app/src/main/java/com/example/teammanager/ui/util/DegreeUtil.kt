@@ -4,7 +4,7 @@ class DegreeUtil {
     enum class Degree {
         Programmation,
         Marketing,
-        Cybersecurité
+        Cybersecurite
     }
 
     companion object {
@@ -12,7 +12,7 @@ class DegreeUtil {
             val recurrenceList = mutableListOf<Degree>()
             recurrenceList.add(Degree.Programmation)
             recurrenceList.add(Degree.Marketing)
-            recurrenceList.add(Degree.Cybersecurité)
+            recurrenceList.add(Degree.Cybersecurite)
 
             return recurrenceList
         }
