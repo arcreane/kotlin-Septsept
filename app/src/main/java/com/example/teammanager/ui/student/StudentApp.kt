@@ -14,7 +14,7 @@ fun AddStudentApp() {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            AddStudentScreen()
+            StudentViewScreen()
         }
     }
 }

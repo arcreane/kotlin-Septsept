@@ -36,9 +36,12 @@ import com.example.teammanager.ui.util.DegreeUtil
 import com.example.teammanager.R
 import com.example.teammanager.ui.component.DegreeDropdownMenu
 
+
+
+
 @SuppressLint("StringFormatInvalid")
 @Composable
-fun AddStudentScreen() {
+fun StudentEntryScreen() {
 
     var firstname by rememberSaveable { mutableStateOf("") };
     var lastname by rememberSaveable { mutableStateOf("") };
@@ -46,6 +49,7 @@ fun AddStudentScreen() {
     var isMaxLevelError by rememberSaveable { mutableStateOf(false) }
     var degree by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programming.name) }
     val context = LocalContext.current
+
 
     Column(
         modifier = Modifier
@@ -137,7 +141,7 @@ fun AddStudentScreen() {
                 .height(56.dp)
                 .align(Alignment.CenterHorizontally),
             onClick = {
-                StudentValidation(
+                StudentEntryValidation(
                     lastname = lastname,
                     firstname = firstname,
                     level = level,
