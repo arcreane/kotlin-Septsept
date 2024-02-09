@@ -42,8 +42,8 @@ import kotlinx.coroutines.runBlocking
 @Composable
 fun StudentEntryScreen(onSave: () -> Unit) {
 
-    var firstname by rememberSaveable { mutableStateOf("") };
-    var lastname by rememberSaveable { mutableStateOf("") };
+    var firstname by rememberSaveable { mutableStateOf("") }
+    var lastname by rememberSaveable { mutableStateOf("") }
     var level by rememberSaveable { mutableStateOf(LevelUtil.Level.B1.name) }
     var degree by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programmation.name) }
     val context = LocalContext.current
@@ -107,7 +107,7 @@ fun StudentEntryScreen(onSave: () -> Unit) {
                 .height(56.dp)
                 .align(Alignment.CenterHorizontally),
             onClick = {
-                StudentEntryValidation(
+                studentEntryValidation(
                     lastname = lastname,
                     firstname = firstname,
                     onInvalidate = { // Error encountered

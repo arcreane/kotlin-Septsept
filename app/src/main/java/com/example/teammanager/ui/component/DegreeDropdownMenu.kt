@@ -1,15 +1,11 @@
 package com.example.teammanager.ui.component
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -69,13 +65,4 @@ fun DegreeDropdownMenu(degree: (String) -> Unit) {
             }
         }
     }
-}
-
-@Composable
-fun TrailingIcon(expanded: Boolean) {
-    Icon(
-        imageVector = Icons.Default.ArrowDropDown,
-        contentDescription = null,
-        modifier = Modifier.clickable { /* Action when trailing icon is clicked */ }
-    )
 }

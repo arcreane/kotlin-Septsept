@@ -2,7 +2,7 @@ package com.example.teammanager.ui.student
 
 import com.example.teammanager.R
 
-fun StudentEntryValidation (
+fun studentEntryValidation (
     firstname: String,
     lastname: String,
     onInvalidate: (Int) -> Unit,
