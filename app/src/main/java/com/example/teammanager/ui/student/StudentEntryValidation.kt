@@ -5,8 +5,6 @@ import com.example.teammanager.R
 fun StudentEntryValidation (
     firstname: String,
     lastname: String,
-    level: String,
-    degree: String,
     onInvalidate: (Int) -> Unit,
     onValidate: () -> Unit
 ) {
@@ -20,10 +18,6 @@ fun StudentEntryValidation (
         return
     }
 
-    if (level.isEmpty()) {
-        onInvalidate(R.string.level_empty)
-        return
-    }
 
     onValidate()
 }

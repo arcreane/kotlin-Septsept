@@ -35,8 +35,7 @@ import androidx.compose.ui.unit.dp
 import com.example.teammanager.ui.util.DegreeUtil
 import com.example.teammanager.R
 import com.example.teammanager.ui.component.DegreeDropdownMenu
-
-
+import com.example.teammanager.ui.component.LevelDropdownMenu
 
 
 @SuppressLint("StringFormatInvalid")
@@ -92,46 +91,9 @@ fun StudentEntryScreen() {
 
         Spacer(modifier = Modifier.padding(4.dp))
 
-        Row(
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            val maxLevel = 5
+        LevelDropdownMenu { level = it }
 
-            Column(
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(
-                    text = stringResource(id = R.string.level),
-                    style = MaterialTheme.typography.bodyLarge
-                )
-                TextField(
-                    modifier = Modifier.width(128.dp),
-                    value = level,
-                    onValueChange = {
-                        if (it.length < maxLevel) {
-                            isMaxLevelError = false
-                            level = it
-                        } else {
-                            isMaxLevelError = true
-                        }
-                    },
-                    trailingIcon = {
-                        if (isMaxLevelError) {
-                            Icon(
-                                imageVector = Icons.Filled.Info,
-                                contentDescription = "Error",
-                                tint = MaterialTheme.colorScheme.error
-                            )
-                        }
-                    },
-                    isError = isMaxLevelError,
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
-                )
-            }
-
-            DegreeDropdownMenu { degree = it }
-
-        }
+        DegreeDropdownMenu { degree = it }
 
         Spacer(modifier = Modifier.padding(8.dp))
 
@@ -144,8 +106,6 @@ fun StudentEntryScreen() {
                 StudentEntryValidation(
                     lastname = lastname,
                     firstname = firstname,
-                    level = level,
-                    degree = degree,
                     onInvalidate = {
                         Toast.makeText(
                             context,

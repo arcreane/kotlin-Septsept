@@ -88,24 +88,9 @@ fun StudentViewScreen() {
             onDismissRequest = { showDialog = false },
             title = { Text("Add Student") },
             text = {
-                StudentEntryScreen(
-                    onAddStudent = {
-                        // Logic to add student
-                        showDialog = false
-                        presses++
-                    }
-                )
+                StudentEntryScreen()
             },
-            confirmButton = {
-                Button(
-                    onClick = {
-                        // You can handle confirmation action if needed
-                        showDialog = false
-                    }
-                ) {
-                    Text("Close")
-                }
-            }
+            confirmButton = { }
         )
     }
 }
