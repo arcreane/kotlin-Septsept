@@ -3,17 +3,17 @@ package com.example.teammanager.ui.util
 class DegreeUtil {
 
     enum class Degree {
-        Programming,
+        Programmation,
         Marketing,
-        Cybersecurity
+        Cybersecurité
     }
 
     companion object {
         fun getDegreeList(): List<Degree> {
             val recurrenceList = mutableListOf<Degree>()
-            recurrenceList.add(Degree.Programming)
+            recurrenceList.add(Degree.Programmation)
             recurrenceList.add(Degree.Marketing)
-            recurrenceList.add(Degree.Cybersecurity)
+            recurrenceList.add(Degree.Cybersecurité)
 
             return recurrenceList
         }

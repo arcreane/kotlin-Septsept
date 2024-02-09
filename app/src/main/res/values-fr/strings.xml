@@ -6,4 +6,10 @@
     <string name="level">Niveau</string>
     <string name="maxLevelError">Il ne peut pas aller au de-là du niveau 5.</string>
     <string name="degree">Cursus</string>
+    <string name="success">Etudiant ajouté avec sucès</string>
+    <string name="value_is_empty">Veuillez comléter tous les champs.</string>
+    <string name="firstname_empty">Complétez le prénom.</string>
+    <string name="lastname_empty">Complétez le nom.</string>
+    <string name="save">Enregistrer</string>
+    <string name="student">Etudiants</string>
 </resources>

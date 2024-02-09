@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.AlertDialog
@@ -23,16 +25,29 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.teammanager.R
+import com.example.teammanager.database.OfflineStudentsRepository
+import com.example.teammanager.database.StudentDatabase
+import com.example.teammanager.ui.component.StudentBlock
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.runBlocking
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StudentViewScreen() {
     var presses by remember { mutableIntStateOf(0) }
     var showDialog by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val database = StudentDatabase.getDatabase(context)
+    val studentDao = database.studentDao()
+    val studentRepository = OfflineStudentsRepository(studentDao)
+    val allStudents = runBlocking {
+        studentRepository.getAllStudentsStream().firstOrNull() ?: emptyList()
+    }
 
     Scaffold(
         topBar = {
@@ -42,7 +57,11 @@ fun StudentViewScreen() {
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text(stringResource(id = R.string.student))
+                    Text(
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        text = stringResource(id = R.string.student),
+                    )
                 }
             )
         },
@@ -52,8 +71,7 @@ fun StudentViewScreen() {
                 contentColor = MaterialTheme.colorScheme.primary,
             ) {
                 Text(
-                    modifier = Modifier
-                        .fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth(),
                     textAlign = TextAlign.Center,
                     text = "Menu de navigation (v2)",
                 )
@@ -65,29 +83,19 @@ fun StudentViewScreen() {
             }
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding),
+        LazyColumn(
+            modifier = Modifier.padding(innerPadding),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Text(
-                modifier = Modifier.padding(8.dp),
-                text =
-                """
-                    This is an example of a scaffold. It uses the Scaffold composable's parameters to create a screen with a simple top app bar, bottom app bar, and floating action button.
-
-                    It also contains some basic inner content, such as this text.
-
-                    You have pressed the floating action button $presses times.
-                """.trimIndent(),
-            )
+            itemsIndexed(allStudents) { _, student ->
+                StudentBlock(student = student)
+            }
         }
     }
 
     if (showDialog) {
         AlertDialog(
             onDismissRequest = { showDialog = false },
-            title = { stringResource(id = R.string.add_student) },
             text = {
                 StudentEntryScreen (onSave = {
                     showDialog = false
@@ -97,3 +105,4 @@ fun StudentViewScreen() {
         )
     }
 }
+

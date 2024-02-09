@@ -24,11 +24,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.teammanager.ui.util.DegreeUtil
 import com.example.teammanager.R
+import com.example.teammanager.database.OfflineStudentsRepository
+import com.example.teammanager.database.Student
+import com.example.teammanager.database.StudentDatabase
 import com.example.teammanager.ui.component.DegreeDropdownMenu
 import com.example.teammanager.ui.component.LevelDropdownMenu
+import com.example.teammanager.ui.util.LevelUtil
+import kotlinx.coroutines.runBlocking
 
 
 @SuppressLint("StringFormatInvalid")
@@ -37,11 +44,12 @@ fun StudentEntryScreen(onSave: () -> Unit) {
 
     var firstname by rememberSaveable { mutableStateOf("") };
     var lastname by rememberSaveable { mutableStateOf("") };
-    var level by rememberSaveable { mutableStateOf("1") }
-    var isMaxLevelError by rememberSaveable { mutableStateOf(false) }
-    var degree by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programming.name) }
+    var level by rememberSaveable { mutableStateOf(LevelUtil.Level.B1.name) }
+    var degree by rememberSaveable { mutableStateOf(DegreeUtil.Degree.Programmation.name) }
     val context = LocalContext.current
-
+    val database = StudentDatabase.getDatabase(context)
+    val studentDao = database.studentDao()
+    val studentRepository = OfflineStudentsRepository(studentDao)
 
     Column(
         modifier = Modifier
@@ -49,6 +57,17 @@ fun StudentEntryScreen(onSave: () -> Unit) {
             .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center,
+            text = stringResource(id = R.string.add_student),
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.bodyLarge
+        )
+
+        Spacer(modifier = Modifier.padding(4.dp))
 
         Text(
             text = stringResource(id = R.string.student_firstname),
@@ -59,7 +78,7 @@ fun StudentEntryScreen(onSave: () -> Unit) {
             modifier = Modifier.fillMaxWidth(),
             value = firstname,
             onValueChange = { firstname = it },
-            placeholder = { Text(text = "Firstname") },
+            placeholder = { Text(text = stringResource(id = R.string.student_firstname)) },
         )
 
         Text(
@@ -71,10 +90,8 @@ fun StudentEntryScreen(onSave: () -> Unit) {
             modifier = Modifier.fillMaxWidth(),
             value = lastname,
             onValueChange = { lastname = it },
-            placeholder = { Text(text = "Lastname") },
+            placeholder = { Text(text = stringResource(id = R.string.student_lastname)) },
         )
-
-        Spacer(modifier = Modifier.padding(4.dp))
 
         LevelDropdownMenu { level = it }
 
@@ -99,12 +116,14 @@ fun StudentEntryScreen(onSave: () -> Unit) {
                         ).show()
                     },
                     onValidate = {
-
                         Toast.makeText(
                             context,
                             context.getString(R.string.success),
                             Toast.LENGTH_LONG
                         ).show()
+                        runBlocking {
+                            studentRepository.insertStudent(Student(lastname = lastname, firstname = firstname, level = level, degree = degree))
+                        }
                         onSave()
                     }
                 )
@@ -116,16 +135,5 @@ fun StudentEntryScreen(onSave: () -> Unit) {
                 style = MaterialTheme.typography.bodyLarge
             )
         }
-
-        if (isMaxLevelError) {
-            Text(
-                text = stringResource(id = R.string.maxLevelError),
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-            )
-        }
-
     }
 }
-
-
